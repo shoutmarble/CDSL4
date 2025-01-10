@@ -4,17 +4,47 @@ networks:
 
 volumes:
   caddy_data: {}
+
+# INSTALL a staging "intermediate" certificate for windows
+# https://acme-staging-v02.api.letsencrypt.org/directory
+#
+# download the intermediate certificate then install locally on windows
+#
+# WINDOWS 
+# certutil -addstore -f "Root" e5.pem
   
 services:
     caddy:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile_inline: |
+                FROM golang:alpine
+
+                RUN apk add git
+
+                WORKDIR /opt
+
+                RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+
+                RUN xcaddy build \
+                    --with github.com/mholt/caddy-l4 \
+                    --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
+                    --with github.com/abiosoft/caddy-yaml \
+                    --with github.com/abiosoft/caddy-json-schema
+
+                ENTRYPOINT ["/opt/caddy"]
+
+                CMD ["docker-proxy"]
+        # build:
+        #     context: .
+        #     dockerfile: Dockerfile
         ports:
             - 80:80
             - 443:443
         environment:
             - CADDY_INGRESS_NETWORKS=caddy
+        labels:
+            - caddy.acme_ca=https://acme-staging-v02.api.letsencrypt.org/directory
         networks:
             - caddy
         volumes:
