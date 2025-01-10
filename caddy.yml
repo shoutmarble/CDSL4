@@ -5,13 +5,14 @@ networks:
 volumes:
   caddy_data: {}
 
-# INSTALL a staging "intermediate" certificate for windows
-# https://acme-staging-v02.api.letsencrypt.org/directory
-#
-# download the intermediate certificate then install locally on windows
+# INSTALL a staging "intermediate" STAGING LE certificate for windows
+# https://github.com/letsencrypt/website/blob/main/static/certs/staging/2024/e5.pem
 #
 # WINDOWS 
 # certutil -addstore -f "Root" e5.pem
+#
+# certmgr (to veiw certificate)
+
   
 services:
     caddy:
