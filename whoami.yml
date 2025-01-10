@@ -1,0 +1,14 @@
+networks:
+    caddy:
+        external: true
+        
+services:
+    whoami:
+        image: traefik/whoami
+        networks:
+            - caddy
+        labels:
+            caddy: who.landingdev.xyz
+            caddy.reverse_proxy: "{{upstreams 80}}"
+
+
