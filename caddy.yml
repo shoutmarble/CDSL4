@@ -9,13 +9,7 @@ services:
     caddy:
         build:
             context: .
-            dockerfile: ./Dockerfile
-        command:
-            - /bin/sh
-            - -c
-            - |
-                echo "baeldung"
-                echo "docker"            
+            dockerfile: Dockerfile
         ports:
             - 80:80
             - 443:443

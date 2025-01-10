@@ -15,4 +15,8 @@ RUN xcaddy build \
 	--with github.com/abiosoft/caddy-json-schema
 
 
-CMD ["sh", "-c", "echo", "hello world"]
+# CMD ["sh", "-c", "echo", "hello world"]
+
+ENTRYPOINT ["/opt/caddy"]
+
+CMD ["docker-proxy"]
