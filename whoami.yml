@@ -10,5 +10,20 @@ services:
         labels:
             caddy: who.landingdev.xyz
             caddy.reverse_proxy: "{{upstreams 80}}"
+            # caddy.respond: / "Hello World" 200
 
+            # caddy.respond: |
+            #     / `Hello
+            #     World` 200
 
+            # caddy.layer4.0_:6432:
+            # caddy.layer4.0_:6432.0_@a: "remote_ip 192.168.1.0/24"
+            # caddy.layer4.0_:6432.0_route: "@a"
+            # caddy.layer4.0_:6432.0_route.0_proxy: "{{ upstreams 6432 }}"
+
+            # caddy.layer4."127.0.0.0.1:5000".route.tls:
+            # caddy.layer4."127.0.0.0.1:5000".route.echo:
+
+            # caddy_1.layer4.0_"127.0.0.1:5000".route.insecure: proxy localhost:80
+            # caddy_1.layer4.0_"127.0.0.1:5000".route.secure: proxy localhost:443
+            
